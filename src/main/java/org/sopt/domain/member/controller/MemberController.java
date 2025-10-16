@@ -15,8 +15,8 @@ public class MemberController {
     }
 
     // 사용자 생성
-    public Long createMember(String name) {
-        return memberService.join(name);
+    public Long createMember(String name, String birthDay, String email, String gender) {
+        return memberService.join(name, birthDay, email, gender);
     }
 
     // 식별자로 사용자 조회

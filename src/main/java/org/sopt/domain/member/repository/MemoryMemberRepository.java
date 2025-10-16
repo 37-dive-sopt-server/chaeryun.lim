@@ -26,4 +26,17 @@ public class MemoryMemberRepository implements MemberRepository {
     public List<Member> findAll() {
         return new ArrayList<>(store.values());
     }
+
+    // 이메일 중복 검증
+    @Override
+    public Optional<Member> existMemberByEmail(String email) {
+
+        for (Member member : store.values()) {
+            if (member.getEmail().equals(email)) {
+                return Optional.of(member);
+            }
+        }
+
+        return Optional.empty();
+    }
 }

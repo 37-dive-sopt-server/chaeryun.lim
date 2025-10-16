@@ -15,4 +15,7 @@ public interface MemberRepository {
 
     // 사용자 전체 조회
     List<Member> findAll();
+
+    // 이메일 중복검증
+    Optional<Member> existMemberByEmail(String email);
 }

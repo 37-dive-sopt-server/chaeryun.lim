@@ -6,7 +6,9 @@ import org.sopt.domain.member.repository.MemoryMemberRepository;
 import org.sopt.domain.member.service.MemberService;
 import org.sopt.domain.member.service.MemberServiceImpl;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -37,7 +39,16 @@ public class Main {
                         System.out.println("⚠️ 이름을 입력해주세요.");
                         continue;
                     }
-                    Long createdId = memberController.createMember(name);
+                    System.out.println("등록할 회원의 생년월일을 입력하세요 (Ex. 2000-01-01): ");
+                    String birthDay = scanner.nextLine();
+
+                    System.out.println("등록할 회원의 이메일을 입력하세요 (Ex. dlacofbs@naver.com): ");
+                    String email = scanner.nextLine();
+
+                    System.out.println("등록할 회원의 성별을 입력하세요 (Ex. 남성, 여성, 기타): ");
+                    String gender = scanner.nextLine();
+
+                    Long createdId = memberController.createMember(name, birthDay, email, gender);
                     if (createdId != null) {
                         System.out.println("✅ 회원 등록 완료 (ID: " + createdId + ")");
                     } else {
