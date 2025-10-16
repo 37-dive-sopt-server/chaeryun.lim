@@ -1,0 +1,29 @@
+package org.sopt.domain.member.repository;
+
+import org.sopt.domain.member.entity.Member;
+
+import java.util.*;
+
+public class MemoryMemberRepository implements MemberRepository {
+
+    private static final Map<Long, Member> store = new HashMap<>();
+
+    // 저장
+    @Override
+    public Member save(Member member) {
+        store.put(member.getId(), member);
+        return member;
+    }
+
+    // 식별자로 사용자 조회
+    @Override
+    public Optional<Member> findById(Long id) {
+        return Optional.ofNullable(store.get(id));
+    }
+
+    // 사용자 전체 조회
+    @Override
+    public List<Member> findAll() {
+        return new ArrayList<>(store.values());
+    }
+}
