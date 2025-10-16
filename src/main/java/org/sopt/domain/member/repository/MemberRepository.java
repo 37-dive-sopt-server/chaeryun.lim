@@ -16,6 +16,9 @@ public interface MemberRepository {
     // 사용자 전체 조회
     List<Member> findAll();
 
+    // 사용자 삭제
+    void deleteById(Long id);
+
     // 이메일 중복검증
     Optional<Member> existMemberByEmail(String email);
 }

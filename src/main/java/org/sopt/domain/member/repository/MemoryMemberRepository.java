@@ -27,6 +27,12 @@ public class MemoryMemberRepository implements MemberRepository {
         return new ArrayList<>(store.values());
     }
 
+    // 사용자 삭제
+    @Override
+    public void deleteById(Long id) {
+        store.remove(id);
+    }
+
     // 이메일 중복 검증
     @Override
     public Optional<Member> existMemberByEmail(String email) {

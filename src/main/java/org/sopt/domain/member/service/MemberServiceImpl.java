@@ -58,6 +58,18 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findAll();
     }
 
+    // 사용자 삭제
+    @Override
+    public void deleteMember(Long memberId) {
+        Optional<Member> byId = memberRepository.findById(memberId);
+        if (byId.isPresent()) {
+            // 삭제
+            memberRepository.deleteById(memberId);
+        } else {
+            // 아니면 예외 (리팩 예정)
+        }
+    }
+
     // 이메일 중복확인 (있으면 true)
     private boolean isValidEmail(String email){
         return memberRepository.existMemberByEmail(email).isPresent();

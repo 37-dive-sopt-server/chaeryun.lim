@@ -15,4 +15,7 @@ public interface MemberService {
 
     // 모든 사용자 조회
     List<Member> findAllMembers();
+
+    // 회원 삭제
+    void deleteMember(Long memberId);
 }

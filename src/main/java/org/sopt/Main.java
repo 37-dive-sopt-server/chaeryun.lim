@@ -25,7 +25,8 @@ public class Main {
             System.out.println("1️⃣. 회원 등록 ➕");
             System.out.println("2️⃣. ID로 회원 조회 🔍");
             System.out.println("3️⃣. 전체 회원 조회 📋");
-            System.out.println("4️⃣. 종료 🚪");
+            System.out.println("4️⃣. 삭제 🗑️");
+            System.out.println("5️⃣. 종료 🚪");
             System.out.println("---------------------------------");
             System.out.print("메뉴를 선택하세요: ");
 
@@ -83,6 +84,14 @@ public class Main {
                     }
                     break;
                 case "4":
+                    System.out.println("삭제할 회원의 ID를 입력하세요: ");
+                    long deletedId = Long.parseLong(scanner.nextLine());
+                    if (memberController.deleteMember(deletedId)){
+                        System.out.println("✅ 회원 삭제 완료 (ID: " + deletedId + ")");
+                    } else {
+                        System.out.println("❌ 유효하지 않은 ID 형식입니다. 숫자를 입력해주세요.");
+                    }
+                case "5":
                     System.out.println("👋 서비스를 종료합니다. 안녕히 계세요!");
                     scanner.close();
                     return;

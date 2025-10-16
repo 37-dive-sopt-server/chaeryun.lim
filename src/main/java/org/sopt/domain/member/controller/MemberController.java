@@ -28,4 +28,10 @@ public class MemberController {
     public List<Member> getAllMembers() {
         return memberService.findAllMembers();
     }
+
+    // 사용자 삭제
+    public boolean deleteMember(Long id){
+        memberService.deleteMember(id);
+        return true;
+    }
 }
