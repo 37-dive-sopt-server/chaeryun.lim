@@ -18,6 +18,7 @@ public class Main {
         MemberRepository memberRepository = new FileMemberRepository();
         MemberService memberService = new MemberServiceImpl(memberRepository);
         MemberController memberController = new MemberController(memberService);
+        Runtime.getRuntime().addShutdownHook(new Thread(memberController::saveFile));
 
         Scanner scanner = new Scanner(System.in);
 

@@ -5,9 +5,8 @@ import org.sopt.domain.member.dto.response.CreateMemberResponse;
 import org.sopt.domain.member.dto.response.MemberResponse;
 import org.sopt.domain.member.entity.Gender;
 import org.sopt.domain.member.entity.Member;
-import org.sopt.domain.member.repository.FileMemberRepository;
+import org.sopt.domain.member.repository.FileSavable;
 import org.sopt.domain.member.repository.MemberRepository;
-import org.sopt.domain.member.repository.MemoryMemberRepository;
 import org.sopt.global.exception.ErrorCode;
 import org.sopt.global.exception.handler.MemberException;
 import org.sopt.global.util.DateUtil;
@@ -81,6 +80,15 @@ public class MemberServiceImpl implements MemberService {
                 .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_MEMBER));
 
         memberRepository.deleteById(byId.getId());
+    }
+
+    // 종료 전 파일 저장
+    @Override
+    public void saveFile() {
+        // FileMemberRepository 일때만 동작
+        if (memberRepository instanceof FileSavable fileSavable) {
+            fileSavable.saveFile();
+        }
     }
 
     // 이메일 중복확인 (있으면 true)

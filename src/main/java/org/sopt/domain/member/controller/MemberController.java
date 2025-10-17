@@ -35,4 +35,9 @@ public class MemberController {
         memberService.deleteMember(id);
         return true;
     }
+
+    // 종료 전 파일 저장
+    public void saveFile(){
+        memberService.saveFile();
+    }
 }

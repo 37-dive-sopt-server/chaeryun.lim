@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class FileMemberRepository implements MemberRepository{
+public class FileMemberRepository implements MemberRepository, FileSavable{
 
     private final String FILE_PATH = "src/main/resources/files/Member.txt";
     private final List<Member> memberList = new ArrayList<>();
@@ -84,6 +84,35 @@ public class FileMemberRepository implements MemberRepository{
                 .findFirst();
     }
 
+    // 종료 전 파일 저장
+    @Override
+    public void saveFile(){
+        try {
+            File file = new File(FILE_PATH);
+
+            if (!file.getParentFile().exists()){
+                file.getParentFile().mkdirs();
+            }
+
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file, false));    // 덮어쓰기 모드
+
+            for (Member member : memberList){
+                bw.write(String.valueOf(member.getId()));
+                bw.write(", " + member.getName());
+                bw.write(", " + member.getBirthDay().toString());
+                bw.write(", " + member.getEmail());
+                bw.write(", " + member.getGender().getDescription());
+                bw.newLine();
+            }
+
+            bw.flush();
+            bw.close();
+
+        } catch (IOException e){
+            throw new MemberException(ErrorCode.MEMBER_FILE_SAVE_ERROR);
+        }
+    }
+
     /**
      * 내부 로직
      */
@@ -124,31 +153,4 @@ public class FileMemberRepository implements MemberRepository{
         }
     }
 
-    // 파일 저장하기
-    private void saveFile(){
-        try {
-            File file = new File(FILE_PATH);
-
-            if (!file.getParentFile().exists()){
-                file.getParentFile().mkdirs();
-            }
-
-            BufferedWriter bw = new BufferedWriter(new FileWriter(file, false));    // 덮어쓰기 모드
-
-            for (Member member : memberList){
-                bw.write(String.valueOf(member.getId()));
-                bw.write(", " + member.getName());
-                bw.write(", " + member.getBirthDay().toString());
-                bw.write(", " + member.getEmail());
-                bw.write(", " + member.getGender().getDescription());
-                bw.newLine();
-            }
-
-            bw.flush();
-            bw.close();
-
-        } catch (IOException e){
-            throw new MemberException(ErrorCode.MEMBER_FILE_SAVE_ERROR);
-        }
-    }
 }
