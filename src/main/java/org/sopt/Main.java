@@ -44,13 +44,13 @@ public class Main {
                             System.out.println("⚠️ 이름을 입력해주세요.");
                             continue;
                         }
-                        System.out.println("등록할 회원의 생년월일을 입력하세요 (Ex. 2000-01-01): ");
+                        System.out.print("등록할 회원의 생년월일을 입력하세요 (Ex. 2000-01-01): ");
                         String birthDay = scanner.nextLine();
 
-                        System.out.println("등록할 회원의 이메일을 입력하세요 (Ex. dlacofbs@naver.com): ");
+                        System.out.print("등록할 회원의 이메일을 입력하세요 (Ex. dlacofbs@naver.com): ");
                         String email = scanner.nextLine();
 
-                        System.out.println("등록할 회원의 성별을 입력하세요 (Ex. 남성, 여성, 기타): ");
+                        System.out.print("등록할 회원의 성별을 입력하세요 (Ex. 남성, 여성, 기타): ");
                         String gender = scanner.nextLine();
 
                         // 사용자 생성 DTO

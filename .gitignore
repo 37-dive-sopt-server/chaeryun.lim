@@ -41,3 +41,6 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Member.txt ###
+src/main/resources/files/Member.txt
