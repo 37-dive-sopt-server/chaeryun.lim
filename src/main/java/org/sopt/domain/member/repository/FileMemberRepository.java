@@ -24,40 +24,9 @@ public class FileMemberRepository implements MemberRepository, FileSavable{
     // Member 파일 저장
     @Override
     public Member save(final Member member) {
-        try {
-            File file = new File(FILE_PATH);
-
-            // 디렉토리 생성
-            if (!file.getParentFile().exists()) {
-                file.getParentFile().mkdirs();
-            }
-
-            // 파일 생성
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-
-            BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
-
-            bw.write(String.valueOf(member.getId()));
-            bw.write(", " + member.getName());
-            bw.write(", " + member.getBirthDay().toString());
-            bw.write(", " + member.getEmail());
-            bw.write(", " + member.getGender().getDescription());
-            bw.newLine();
-
-            // 파일 저장
-            memberList.add(member);
-
-            // 파일 쓰기
-            bw.flush();
-            // 누수 방지
-            bw.close();
-
-            return member;
-        } catch (IOException e){
-            throw new MemberException(ErrorCode.MEMBER_FILE_SAVE_ERROR);
-        }
+        // 파일 저장
+        memberList.add(member);
+        return member;
     }
 
     @Override
