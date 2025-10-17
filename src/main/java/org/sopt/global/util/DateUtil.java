@@ -11,7 +11,11 @@ public class DateUtil {
 
     // String으로 Date 반환
     public static LocalDate string2Date(String str){
-
         return LocalDate.parse(str, DateTimeFormatter.ofPattern(DATE_PATTERN));
+    }
+
+    // Date를 String으로 변환
+    public static String Date2String(LocalDate localDate){
+        return localDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN));
     }
 }

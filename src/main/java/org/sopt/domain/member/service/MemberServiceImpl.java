@@ -1,14 +1,19 @@
 package org.sopt.domain.member.service;
 
+import org.sopt.domain.member.dto.request.CreateMemberRequest;
+import org.sopt.domain.member.dto.response.CreateMemberResponse;
+import org.sopt.domain.member.dto.response.MemberResponse;
 import org.sopt.domain.member.entity.Gender;
 import org.sopt.domain.member.entity.Member;
 import org.sopt.domain.member.repository.MemberRepository;
 import org.sopt.domain.member.repository.MemoryMemberRepository;
+import org.sopt.global.exception.ErrorCode;
+import org.sopt.global.exception.handler.MemberException;
 import org.sopt.global.util.DateUtil;
+import org.sopt.global.util.MemberValidator;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 public class MemberServiceImpl implements MemberService {
 
@@ -21,53 +26,60 @@ public class MemberServiceImpl implements MemberService {
 
     // 사용자 저장
     @Override
-    public Long join(String name, String birthDay, String email, String gender) {
+    public CreateMemberResponse join(CreateMemberRequest createMemberRequest) {
 
-        // 1. 생일 LocalDate로 변환
-        LocalDate date = DateUtil.string2Date(birthDay);
+        // 1. DTO 형식 검증
+        MemberValidator.validate(createMemberRequest);
 
-        // 2. 중복 검증
-        if (isValidEmail(email)){
-            // 예외처리
+        // 2. 생일 LocalDate로 변환
+        LocalDate date = DateUtil.string2Date(createMemberRequest.birthDay());
+
+        // 3. 중복 검증
+        if (isValidEmail(createMemberRequest.email())){
+            throw new MemberException(ErrorCode.EXIST_EMAIL);
         }
 
-        // 3. Gender 검사
-        Gender from = Gender.from(gender);
+        // 4. Gender 검사
+        Gender from = Gender.from(createMemberRequest.gender());
 
         Member member = new Member.
-                Builder(sequence++, name)
+                Builder(sequence++, createMemberRequest.name())
                 .birthDay(date)
-                .email(email)
+                .email(createMemberRequest.email())
                 .gender(from)
                 .build();
 
         Member save = memberRepository.save(member);
 
-        return save.getId();
+        return new CreateMemberResponse(save.getId());
     }
 
     // 사용자 조회
     @Override
-    public Optional<Member> findOne(Long memberId) {
-        return memberRepository.findById(memberId);
+    public MemberResponse findOne(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_MEMBER));
+
+        return MemberResponse.of(member);
     }
 
     // 전체 사용자 조회
     @Override
-    public List<Member> findAllMembers() {
-        return memberRepository.findAll();
+    public List<MemberResponse> findAllMembers() {
+
+        return memberRepository.findAll()
+                .stream()
+                .map(MemberResponse::of)
+                .toList();
     }
 
     // 사용자 삭제
     @Override
     public void deleteMember(Long memberId) {
-        Optional<Member> byId = memberRepository.findById(memberId);
-        if (byId.isPresent()) {
-            // 삭제
-            memberRepository.deleteById(memberId);
-        } else {
-            // 아니면 예외 (리팩 예정)
-        }
+        Member byId = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_MEMBER));
+
+        memberRepository.deleteById(byId.getId());
     }
 
     // 이메일 중복확인 (있으면 true)

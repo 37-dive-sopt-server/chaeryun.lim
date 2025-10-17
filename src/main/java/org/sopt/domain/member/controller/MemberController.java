@@ -1,5 +1,8 @@
 package org.sopt.domain.member.controller;
 
+import org.sopt.domain.member.dto.request.CreateMemberRequest;
+import org.sopt.domain.member.dto.response.CreateMemberResponse;
+import org.sopt.domain.member.dto.response.MemberResponse;
 import org.sopt.domain.member.entity.Member;
 import org.sopt.domain.member.service.MemberService;
 
@@ -15,17 +18,17 @@ public class MemberController {
     }
 
     // 사용자 생성
-    public Long createMember(String name, String birthDay, String email, String gender) {
-        return memberService.join(name, birthDay, email, gender);
+    public CreateMemberResponse createMember(CreateMemberRequest createMemberRequest) {
+        return memberService.join(createMemberRequest);
     }
 
     // 식별자로 사용자 조회
-    public Optional<Member> findMemberById(Long id) {
+    public MemberResponse findMemberById(Long id) {
         return memberService.findOne(id);
     }
 
     // 전체 사용자 조회
-    public List<Member> getAllMembers() {
+    public List<MemberResponse> getAllMembers() {
         return memberService.findAllMembers();
     }
 
