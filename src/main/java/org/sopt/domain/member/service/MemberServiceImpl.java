@@ -5,6 +5,7 @@ import org.sopt.domain.member.dto.response.CreateMemberResponse;
 import org.sopt.domain.member.dto.response.MemberResponse;
 import org.sopt.domain.member.entity.Gender;
 import org.sopt.domain.member.entity.Member;
+import org.sopt.domain.member.repository.FileMemberRepository;
 import org.sopt.domain.member.repository.MemberRepository;
 import org.sopt.domain.member.repository.MemoryMemberRepository;
 import org.sopt.global.exception.ErrorCode;
@@ -20,7 +21,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private static long sequence = 1L;
 
-    public MemberServiceImpl(MemoryMemberRepository memberRepository) {
+    public MemberServiceImpl(FileMemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 

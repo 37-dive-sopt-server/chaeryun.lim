@@ -9,7 +9,9 @@ public enum ErrorCode {
     EMPTY_GENDER(400, "성별은 비어 있을 수 없습니다."),
     EMPTY_DATA(400, "요청 데이터가 비어 있습니다."),
     AGE_RESTRICTION(400, "20세 미만의 회원은 가입이 불가능합니다."),
-    NOT_FOUND_MEMBER(404, "⚠️ 해당 ID의 회원을 찾을 수 없습니다.");
+    NOT_FOUND_MEMBER(404, "⚠️ 해당 ID의 회원을 찾을 수 없습니다."),
+    MEMBER_FILE_LOAD_ERROR(500, "회원 파일 로드에 오류가 발생했습니다."),
+    MEMBER_FILE_SAVE_ERROR(500, "회원 파일 저장에 오류가 발생했습니다.");
 
     private final int httpCode;
     private final String msg;

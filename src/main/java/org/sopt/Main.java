@@ -3,20 +3,18 @@ package org.sopt;
 import org.sopt.domain.member.controller.MemberController;
 import org.sopt.domain.member.dto.request.CreateMemberRequest;
 import org.sopt.domain.member.dto.response.MemberResponse;
-import org.sopt.domain.member.entity.Member;
-import org.sopt.domain.member.repository.MemoryMemberRepository;
+import org.sopt.domain.member.repository.FileMemberRepository;
 import org.sopt.domain.member.service.MemberService;
 import org.sopt.domain.member.service.MemberServiceImpl;
 import org.sopt.global.exception.handler.MemberException;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        MemoryMemberRepository memberRepository = new MemoryMemberRepository();
+        FileMemberRepository memberRepository = new FileMemberRepository();
         MemberService memberService = new MemberServiceImpl(memberRepository);
         MemberController memberController = new MemberController(memberService);
 

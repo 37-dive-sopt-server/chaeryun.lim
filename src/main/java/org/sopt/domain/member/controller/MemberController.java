@@ -3,11 +3,9 @@ package org.sopt.domain.member.controller;
 import org.sopt.domain.member.dto.request.CreateMemberRequest;
 import org.sopt.domain.member.dto.response.CreateMemberResponse;
 import org.sopt.domain.member.dto.response.MemberResponse;
-import org.sopt.domain.member.entity.Member;
 import org.sopt.domain.member.service.MemberService;
 
 import java.util.List;
-import java.util.Optional;
 
 public class MemberController {
 
