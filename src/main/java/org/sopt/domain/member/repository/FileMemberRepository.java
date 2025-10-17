@@ -8,15 +8,12 @@ import org.sopt.global.util.DateUtil;
 import org.sopt.global.util.MemberIdGenerator;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public class FileMemberRepository implements MemberRepository, FileSavable{
 
-    private final String FILE_PATH = "src/main/resources/files/Member.txt";
-    private final List<Member> memberList = new ArrayList<>();
+    private static final String FILE_PATH = "src/main/resources/files/Member.txt";
+    private final Map<Long, Member> store = new HashMap<>();
 
     public FileMemberRepository(){
         loadMemberDate();
@@ -26,35 +23,38 @@ public class FileMemberRepository implements MemberRepository, FileSavable{
     @Override
     public Member save(final Member member) {
         // 파일 저장
-        memberList.add(member);
+        store.put(member.getId(), member);
         return member;
     }
 
     @Override
     public Optional<Member> findById(final Long id) {
-        return memberList.stream()
-                .filter(member -> Objects.equals(member.getId(), id))
-                .findFirst();
+        return store.containsKey(id) ? Optional.of(store.get(id)) : Optional.empty();
     }
 
     @Override
     public List<Member> findAll() {
-        return memberList;
+        return store.values().stream().toList();
     }
 
     @Override
     public void deleteById(final Long id) {
-        boolean removed = memberList.removeIf(member -> Objects.equals(member.getId(), id));
-        if (!removed){
+        if(!store.containsKey(id)){
             throw new MemberException(ErrorCode.NOT_FOUND_MEMBER);
         }
+        store.remove(id);
     }
 
     @Override
     public Optional<Member> existMemberByEmail(final String email) {
-        return memberList.stream()
-                .filter(member -> Objects.equals(member.getEmail(), email))
-                .findFirst();
+
+        for (Member member : store.values()) {
+            if (member.getEmail().equals(email)) {
+                return Optional.of(member);
+            }
+        }
+
+        return Optional.empty();
     }
 
     // 종료 전 파일 저장
@@ -69,7 +69,7 @@ public class FileMemberRepository implements MemberRepository, FileSavable{
 
             BufferedWriter bw = new BufferedWriter(new FileWriter(file, false));    // 덮어쓰기 모드
 
-            for (Member member : memberList){
+            for (Member member : store.values()) {
                 bw.write(String.valueOf(member.getId()));
                 bw.write(", " + member.getName());
                 bw.write(", " + member.getBirthDay().toString());
@@ -116,7 +116,7 @@ public class FileMemberRepository implements MemberRepository, FileSavable{
                             .gender(Gender.from(split[4]))
                             .build();
 
-                    memberList.add(member);
+                    store.put(member.getId(), member);
                 }
 
                 br.close();
@@ -125,9 +125,8 @@ public class FileMemberRepository implements MemberRepository, FileSavable{
             throw new MemberException(ErrorCode.MEMBER_FILE_LOAD_ERROR);
         }
 
-        // 마지막 인덱스 확인 후 ID 넣기
-        Member member = memberList.get(memberList.size() - 1);
-        MemberIdGenerator.loadToId(member.getId());
+        // 가장 큰 Key 값 확인 후 ID 넣기
+        store.keySet().stream().max(Long::compareTo).ifPresent(MemberIdGenerator::loadToId);
     }
 
 }
