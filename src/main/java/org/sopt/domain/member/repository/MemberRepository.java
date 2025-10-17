@@ -8,17 +8,17 @@ import java.util.Optional;
 public interface MemberRepository {
 
     // 사용자 저장
-    Member save(Member member);
+    Member save(final Member member);
 
     // 식별자로 사용자 조회
-    Optional<Member> findById(Long id);
+    Optional<Member> findById(final Long id);
 
     // 사용자 전체 조회
     List<Member> findAll();
 
     // 사용자 삭제
-    void deleteById(Long id);
+    void deleteById(final Long id);
 
     // 이메일 중복검증
-    Optional<Member> existMemberByEmail(String email);
+    Optional<Member> existMemberByEmail(final String email);
 }

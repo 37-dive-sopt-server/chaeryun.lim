@@ -11,17 +11,17 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    public MemberController(MemberService memberService) {
+    public MemberController(final MemberService memberService) {
         this.memberService = memberService;
     }
 
     // 사용자 생성
-    public CreateMemberResponse createMember(CreateMemberRequest createMemberRequest) {
+    public CreateMemberResponse createMember(final CreateMemberRequest createMemberRequest) {
         return memberService.join(createMemberRequest);
     }
 
     // 식별자로 사용자 조회
-    public MemberResponse findMemberById(Long id) {
+    public MemberResponse findMemberById(final Long id) {
         return memberService.findOne(id);
     }
 
@@ -31,7 +31,7 @@ public class MemberController {
     }
 
     // 사용자 삭제
-    public boolean deleteMember(Long id){
+    public boolean deleteMember(final Long id){
         memberService.deleteMember(id);
         return true;
     }

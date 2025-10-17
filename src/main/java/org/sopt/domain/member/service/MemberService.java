@@ -10,14 +10,14 @@ import java.util.List;
 public interface MemberService {
 
     // 가입
-    CreateMemberResponse join(CreateMemberRequest createMemberRequest);
+    CreateMemberResponse join(final CreateMemberRequest createMemberRequest);
 
     // memberId로 사용자 조회
-    MemberResponse findOne(Long memberId);
+    MemberResponse findOne(final Long memberId);
 
     // 모든 사용자 조회
     List<MemberResponse> findAllMembers();
 
     // 회원 삭제
-    void deleteMember(Long memberId);
+    void deleteMember(final Long memberId);
 }

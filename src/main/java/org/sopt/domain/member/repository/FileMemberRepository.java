@@ -23,7 +23,7 @@ public class FileMemberRepository implements MemberRepository{
 
     // Member 파일 저장
     @Override
-    public Member save(Member member) {
+    public Member save(final Member member) {
         try {
             File file = new File(FILE_PATH);
 
@@ -61,7 +61,7 @@ public class FileMemberRepository implements MemberRepository{
     }
 
     @Override
-    public Optional<Member> findById(Long id) {
+    public Optional<Member> findById(final Long id) {
         return memberList.stream()
                 .filter(member -> Objects.equals(member.getId(), id))
                 .findFirst();
@@ -73,12 +73,12 @@ public class FileMemberRepository implements MemberRepository{
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(final Long id) {
         memberList.removeIf(member -> Objects.equals(member.getId(), id));
     }
 
     @Override
-    public Optional<Member> existMemberByEmail(String email) {
+    public Optional<Member> existMemberByEmail(final String email) {
         return memberList.stream()
                 .filter(member -> Objects.equals(member.getEmail(), email))
                 .findFirst();

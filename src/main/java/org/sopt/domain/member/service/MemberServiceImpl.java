@@ -27,7 +27,7 @@ public class MemberServiceImpl implements MemberService {
 
     // 사용자 저장
     @Override
-    public CreateMemberResponse join(CreateMemberRequest createMemberRequest) {
+    public CreateMemberResponse join(final CreateMemberRequest createMemberRequest) {
 
         // 1. DTO 형식 검증
         MemberValidator.validate(createMemberRequest);
@@ -57,7 +57,7 @@ public class MemberServiceImpl implements MemberService {
 
     // 사용자 조회
     @Override
-    public MemberResponse findOne(Long memberId) {
+    public MemberResponse findOne(final Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_MEMBER));
 
@@ -76,7 +76,7 @@ public class MemberServiceImpl implements MemberService {
 
     // 사용자 삭제
     @Override
-    public void deleteMember(Long memberId) {
+    public void deleteMember(final Long memberId) {
         Member byId = memberRepository.findById(memberId)
                 .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_MEMBER));
 
@@ -84,7 +84,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     // 이메일 중복확인 (있으면 true)
-    private boolean isValidEmail(String email){
+    private boolean isValidEmail(final String email){
         return memberRepository.existMemberByEmail(email).isPresent();
     }
 }
