@@ -10,6 +10,7 @@ import org.sopt.domain.member.repository.MemberRepository;
 import org.sopt.global.exception.ErrorCode;
 import org.sopt.global.exception.handler.MemberException;
 import org.sopt.global.util.DateUtil;
+import org.sopt.global.util.MemberIdGenerator;
 import org.sopt.global.util.MemberValidator;
 
 import java.time.LocalDate;
@@ -18,7 +19,6 @@ import java.util.List;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
-    private static long sequence = 1L;
 
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
@@ -43,7 +43,7 @@ public class MemberServiceImpl implements MemberService {
         Gender from = Gender.from(createMemberRequest.gender());
 
         Member member = new Member.
-                Builder(sequence++, createMemberRequest.name())
+                Builder(MemberIdGenerator.generatePostId(), createMemberRequest.name())
                 .birthDay(date)
                 .email(createMemberRequest.email())
                 .gender(from)

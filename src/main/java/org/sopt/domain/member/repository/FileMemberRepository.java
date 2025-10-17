@@ -5,6 +5,7 @@ import org.sopt.domain.member.entity.Member;
 import org.sopt.global.exception.ErrorCode;
 import org.sopt.global.exception.handler.MemberException;
 import org.sopt.global.util.DateUtil;
+import org.sopt.global.util.MemberIdGenerator;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -120,6 +121,10 @@ public class FileMemberRepository implements MemberRepository, FileSavable{
         } catch (IOException e){
             throw new MemberException(ErrorCode.MEMBER_FILE_LOAD_ERROR);
         }
+
+        // 마지막 인덱스 확인 후 ID 넣기
+        Member member = memberList.get(memberList.size() - 1);
+        MemberIdGenerator.loadToId(member.getId());
     }
 
 }
