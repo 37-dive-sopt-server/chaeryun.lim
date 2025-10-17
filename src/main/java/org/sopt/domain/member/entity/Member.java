@@ -1,5 +1,9 @@
 package org.sopt.domain.member.entity;
 
+import org.sopt.global.exception.ErrorCode;
+import org.sopt.global.exception.handler.MemberException;
+import org.sopt.global.util.DateUtil;
+
 import java.time.LocalDate;
 
 public class Member {
@@ -52,7 +56,11 @@ public class Member {
 
         // ===그 외 선택 파라미터들=== //
 
+        // 리치 도메인을 향하여..
         public Builder birthDay(LocalDate birthDay){
+            if (LocalDate.now().getYear() - birthDay.getYear() < 19){
+                throw new MemberException(ErrorCode.AGE_RESTRICTION);
+            }
             this.birthDay = birthDay;
             return this;
         }

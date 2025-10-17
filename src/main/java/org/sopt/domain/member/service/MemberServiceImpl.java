@@ -33,7 +33,7 @@ public class MemberServiceImpl implements MemberService {
 
         // 2. 생일 LocalDate로 변환
         LocalDate date = DateUtil.string2Date(createMemberRequest.birthDay());
-
+        
         // 3. 중복 검증
         if (isValidEmail(createMemberRequest.email())){
             throw new MemberException(ErrorCode.EXIST_EMAIL);

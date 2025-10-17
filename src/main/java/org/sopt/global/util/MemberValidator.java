@@ -30,9 +30,7 @@ public class MemberValidator {
         if (request.birthDay() == null || request.birthDay().isBlank()) {
             throw new MemberException(ErrorCode.EMPTY_BIRTHDAY);
         }
-        if (LocalDate.now().getYear() - DateUtil.string2Date(request.birthDay()).getYear() < 19){
-            throw new MemberException(ErrorCode.AGE_RESTRICTION);
-        }
+
         try {
             DateUtil.string2Date(request.birthDay());
         } catch (DateTimeParseException e) {
