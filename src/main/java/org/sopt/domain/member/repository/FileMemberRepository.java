@@ -44,7 +44,10 @@ public class FileMemberRepository implements MemberRepository, FileSavable{
 
     @Override
     public void deleteById(final Long id) {
-        memberList.removeIf(member -> Objects.equals(member.getId(), id));
+        boolean removed = memberList.removeIf(member -> Objects.equals(member.getId(), id));
+        if (!removed){
+            throw new MemberException(ErrorCode.NOT_FOUND_MEMBER);
+        }
     }
 
     @Override

@@ -76,10 +76,7 @@ public class MemberServiceImpl implements MemberService {
     // 사용자 삭제
     @Override
     public void deleteMember(final Long memberId) {
-        Member byId = memberRepository.findById(memberId)
-                .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_MEMBER));
-
-        memberRepository.deleteById(byId.getId());
+        memberRepository.deleteById(memberId);
     }
 
     // 종료 전 파일 저장
