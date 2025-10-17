@@ -8,6 +8,7 @@ public enum ErrorCode {
     EMPTY_BIRTHDAY(400, "생일은 비어 있을 수 없습니다."),
     EMPTY_GENDER(400, "성별은 비어 있을 수 없습니다."),
     EMPTY_DATA(400, "요청 데이터가 비어 있습니다."),
+    AGE_RESTRICTION(400, "20세 미만의 회원은 가입이 불가능합니다."),
     NOT_FOUND_MEMBER(404, "⚠️ 해당 ID의 회원을 찾을 수 없습니다.");
 
     private final int httpCode;

@@ -4,6 +4,7 @@ import org.sopt.domain.member.dto.request.CreateMemberRequest;
 import org.sopt.global.exception.ErrorCode;
 import org.sopt.global.exception.handler.MemberException;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 // 회원 관련 입력 검증
@@ -28,6 +29,9 @@ public class MemberValidator {
         // 생일 검증
         if (request.birthDay() == null || request.birthDay().isBlank()) {
             throw new MemberException(ErrorCode.EMPTY_BIRTHDAY);
+        }
+        if (LocalDate.now().getYear() - DateUtil.string2Date(request.birthDay()).getYear() < 19){
+            throw new MemberException(ErrorCode.AGE_RESTRICTION);
         }
         try {
             DateUtil.string2Date(request.birthDay());
