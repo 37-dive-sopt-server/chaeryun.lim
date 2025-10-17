@@ -4,6 +4,7 @@ import org.sopt.domain.member.controller.MemberController;
 import org.sopt.domain.member.dto.request.CreateMemberRequest;
 import org.sopt.domain.member.dto.response.MemberResponse;
 import org.sopt.domain.member.repository.FileMemberRepository;
+import org.sopt.domain.member.repository.MemberRepository;
 import org.sopt.domain.member.service.MemberService;
 import org.sopt.domain.member.service.MemberServiceImpl;
 import org.sopt.global.exception.handler.MemberException;
@@ -14,7 +15,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        FileMemberRepository memberRepository = new FileMemberRepository();
+        MemberRepository memberRepository = new FileMemberRepository();
         MemberService memberService = new MemberServiceImpl(memberRepository);
         MemberController memberController = new MemberController(memberService);
 

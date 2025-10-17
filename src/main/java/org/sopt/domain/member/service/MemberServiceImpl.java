@@ -21,7 +21,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private static long sequence = 1L;
 
-    public MemberServiceImpl(FileMemberRepository memberRepository) {
+    public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
