@@ -99,10 +99,14 @@ public class Main {
                         break;
                     case "4":
                         System.out.println("삭제할 회원의 ID를 입력하세요: ");
-                        long deletedId = Long.parseLong(scanner.nextLine());
-                        if (memberController.deleteMember(deletedId)){
-                            System.out.println("✅ 회원 삭제 완료 (ID: " + deletedId + ")");
-                        } else {
+                        try {
+                            long deletedId = Long.parseLong(scanner.nextLine());
+                            if (memberController.deleteMember(deletedId)){
+                                System.out.println("✅ 회원 삭제 완료 (ID: " + deletedId + ")");
+                            } else {
+                                System.out.println("❌ 유효하지 않은 ID 형식입니다. 숫자를 입력해주세요.");
+                            }
+                        } catch (NumberFormatException e) {
                             System.out.println("❌ 유효하지 않은 ID 형식입니다. 숫자를 입력해주세요.");
                         }
                     case "5":

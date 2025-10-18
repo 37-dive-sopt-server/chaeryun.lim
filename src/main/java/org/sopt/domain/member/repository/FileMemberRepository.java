@@ -16,7 +16,7 @@ public class FileMemberRepository implements MemberRepository, FileSavable{
     private final Map<Long, Member> store = new HashMap<>();
 
     public FileMemberRepository(){
-        loadMemberDate();
+        loadMemberData();
     }
 
     // Member 파일 저장
@@ -91,7 +91,7 @@ public class FileMemberRepository implements MemberRepository, FileSavable{
      */
 
     // 파일 불러오기
-    private void loadMemberDate(){
+    private void loadMemberData(){
         try {
             File file = new File(FILE_PATH);
 
