@@ -6,6 +6,7 @@ import org.sopt.global.exception.ErrorCode;
 import org.sopt.global.exception.handler.MemberException;
 import org.sopt.global.util.DateUtil;
 import org.sopt.global.util.MemberIdGenerator;
+import org.springframework.stereotype.Repository;
 
 import java.io.*;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@Repository(value = "fileMemberRepository")
 public class FileMemberRepository implements MemberRepository, FileSavable{
 
     private static final String FILE_PATH = "src/main/resources/files/Member.txt";
