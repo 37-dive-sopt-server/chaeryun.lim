@@ -55,7 +55,6 @@ public class MemberController {
 
     // 사용자 삭제
     @DeleteMapping("/{userId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)  // 성공시 NO_CONTENT 반환
     public ResponseEntity<ApiResponse<Void>> deleteMember(@PathVariable final Long userId){
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(
                 ApiResponse.ok("", null)
