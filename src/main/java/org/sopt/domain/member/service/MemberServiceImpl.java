@@ -12,10 +12,12 @@ import org.sopt.global.exception.handler.MemberException;
 import org.sopt.global.util.DateUtil;
 import org.sopt.global.util.MemberIdGenerator;
 import org.sopt.global.util.MemberValidator;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Service
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
