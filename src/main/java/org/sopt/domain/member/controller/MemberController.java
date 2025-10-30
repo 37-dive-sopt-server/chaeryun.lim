@@ -24,7 +24,7 @@ public class MemberController {
     @PostMapping
     public ResponseEntity<ApiResponse<CreateMemberResponse>> createMember(@RequestBody final CreateMemberRequest createMemberRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(
-                ApiResponse.ok(
+                ApiResponse.created(
                         "멤버 등록이 성공하였습니다.",
                         memberService.join(createMemberRequest)
                 )
