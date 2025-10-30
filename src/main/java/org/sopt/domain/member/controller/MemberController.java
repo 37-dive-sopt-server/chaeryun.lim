@@ -2,6 +2,7 @@ package org.sopt.domain.member.controller;
 
 import org.sopt.domain.member.dto.request.CreateMemberRequest;
 import org.sopt.domain.member.dto.response.CreateMemberResponse;
+import org.sopt.domain.member.dto.response.MemberListResponse;
 import org.sopt.domain.member.dto.response.MemberResponse;
 import org.sopt.domain.member.service.MemberService;
 import org.springframework.http.HttpStatus;
@@ -33,13 +34,13 @@ public class MemberController {
 
     // 전체 사용자 조회
     @GetMapping
-    public List<MemberResponse> getAllMembers() {
+    public MemberListResponse getAllMembers() {
         return memberService.findAllMembers();
     }
 
     // 사용자 삭제
     @DeleteMapping("/{userId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)  // 성공시 NO_CONTENT 반환
     public void deleteMember(@PathVariable final Long userId){
         memberService.deleteMember(userId);
     }

@@ -2,6 +2,7 @@ package org.sopt.domain.member.service;
 
 import org.sopt.domain.member.dto.request.CreateMemberRequest;
 import org.sopt.domain.member.dto.response.CreateMemberResponse;
+import org.sopt.domain.member.dto.response.MemberListResponse;
 import org.sopt.domain.member.dto.response.MemberResponse;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface MemberService {
     MemberResponse findOne(final Long memberId);
 
     // 모든 사용자 조회
-    List<MemberResponse> findAllMembers();
+    MemberListResponse findAllMembers();
 
     // 회원 삭제
     void deleteMember(final Long memberId);
