@@ -3,9 +3,11 @@ package org.sopt.domain.member.repository;
 import org.sopt.domain.member.entity.Member;
 import org.sopt.global.exception.ErrorCode;
 import org.sopt.global.exception.handler.MemberException;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
+@Repository(value = "memoryMemberRepository")
 public class MemoryMemberRepository implements MemberRepository {
 
     private static final Map<Long, Member> store = new HashMap<>();

@@ -2,6 +2,7 @@ package org.sopt.domain.member.service;
 
 import org.sopt.domain.member.dto.request.CreateMemberRequest;
 import org.sopt.domain.member.dto.response.CreateMemberResponse;
+import org.sopt.domain.member.dto.response.MemberListResponse;
 import org.sopt.domain.member.dto.response.MemberResponse;
 import org.sopt.domain.member.entity.Gender;
 import org.sopt.domain.member.entity.Member;
@@ -12,15 +13,17 @@ import org.sopt.global.exception.handler.MemberException;
 import org.sopt.global.util.DateUtil;
 import org.sopt.global.util.MemberIdGenerator;
 import org.sopt.global.util.MemberValidator;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 
+@Service
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
 
-    public MemberServiceImpl(MemberRepository memberRepository) {
+    public MemberServiceImpl(@Qualifier(value = "memoryMemberRepository") MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
@@ -65,12 +68,15 @@ public class MemberServiceImpl implements MemberService {
 
     // 전체 사용자 조회
     @Override
-    public List<MemberResponse> findAllMembers() {
+    public MemberListResponse findAllMembers() {
 
-        return memberRepository.findAll()
+        // 단순한 래퍼DTO라서 정팩메 x
+        return new MemberListResponse(
+                memberRepository.findAll()
                 .stream()
                 .map(MemberResponse::of)
-                .toList();
+                .toList()
+        );
     }
 
     // 사용자 삭제

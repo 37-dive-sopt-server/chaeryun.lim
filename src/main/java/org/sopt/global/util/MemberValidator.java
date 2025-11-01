@@ -4,7 +4,6 @@ import org.sopt.domain.member.dto.request.CreateMemberRequest;
 import org.sopt.global.exception.ErrorCode;
 import org.sopt.global.exception.handler.MemberException;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 // 회원 관련 입력 검증
