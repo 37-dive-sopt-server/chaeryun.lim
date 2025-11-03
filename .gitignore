@@ -44,3 +44,6 @@ bin/
 
 ### Member.txt ###
 src/main/resources/files/Member.txt
+
+### yml ###
+application.yml

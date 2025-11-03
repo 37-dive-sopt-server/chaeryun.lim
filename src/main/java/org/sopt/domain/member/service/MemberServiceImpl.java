@@ -6,14 +6,12 @@ import org.sopt.domain.member.dto.response.MemberListResponse;
 import org.sopt.domain.member.dto.response.MemberResponse;
 import org.sopt.domain.member.entity.Gender;
 import org.sopt.domain.member.entity.Member;
-import org.sopt.domain.member.repository.FileSavable;
 import org.sopt.domain.member.repository.MemberRepository;
 import org.sopt.global.exception.ErrorCode;
 import org.sopt.global.exception.handler.MemberException;
 import org.sopt.global.util.DateUtil;
 import org.sopt.global.util.MemberIdGenerator;
 import org.sopt.global.util.MemberValidator;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -23,7 +21,7 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
 
-    public MemberServiceImpl(@Qualifier(value = "memoryMemberRepository") MemberRepository memberRepository) {
+    public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
@@ -85,17 +83,9 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.deleteById(memberId);
     }
 
-    // 종료 전 파일 저장
-    @Override
-    public void saveFile() {
-        // FileMemberRepository 일때만 동작
-        if (memberRepository instanceof FileSavable fileSavable) {
-            fileSavable.saveFile();
-        }
-    }
 
     // 이메일 중복확인 (있으면 true)
     private boolean isValidEmail(final String email){
-        return memberRepository.existMemberByEmail(email).isPresent();
+        return memberRepository.existByMember(email).isPresent();
     }
 }

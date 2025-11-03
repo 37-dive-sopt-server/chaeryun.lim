@@ -61,8 +61,4 @@ public class MemberController {
         );
     }
 
-    // 종료 전 파일 저장
-    public void saveFile(){
-        memberService.saveFile();
-    }
 }

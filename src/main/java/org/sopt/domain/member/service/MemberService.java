@@ -21,6 +21,4 @@ public interface MemberService {
     // 회원 삭제
     void deleteMember(final Long memberId);
 
-    // 종료 전 회원 전체 저장
-    void saveFile();
 }

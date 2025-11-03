@@ -1,17 +1,31 @@
 package org.sopt.domain.member.entity;
 
+import jakarta.persistence.*;
 import org.sopt.global.exception.ErrorCode;
 import org.sopt.global.exception.handler.MemberException;
 import org.sopt.global.util.DateUtil;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
 public class Member {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private LocalDate birthDay; // 생년월일
     private String email;       // 이메일
+    @Enumerated(EnumType.STRING)
     private Gender gender;      // 성별
+
+    @OneToMany(mappedBy = "member")
+    private List<Article> articles = new ArrayList<>();
+
+    public Member() {
+
+    }
 
     private Member(Builder builder) {
         this.id = builder.id;
