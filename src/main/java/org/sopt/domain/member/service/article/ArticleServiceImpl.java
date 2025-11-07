@@ -2,6 +2,7 @@ package org.sopt.domain.member.service.article;
 
 import lombok.RequiredArgsConstructor;
 import org.sopt.domain.member.dto.request.article.CreateArticleRequest;
+import org.sopt.domain.member.dto.response.article.ArticleListResponse;
 import org.sopt.domain.member.dto.response.article.ArticleResponse;
 import org.sopt.domain.member.entity.Article;
 import org.sopt.domain.member.entity.Member;
@@ -12,6 +13,8 @@ import org.sopt.global.exception.handler.ArticleException;
 import org.sopt.global.exception.handler.MemberException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -37,5 +40,14 @@ public class ArticleServiceImpl implements ArticleService {
 
         Article article = articleRepository.save(Article.create(request, member));
         return ArticleResponse.of(article);
+    }
+
+    @Override
+    public ArticleListResponse getArticles() {
+        List<ArticleResponse> list = articleRepository.findAll().stream()
+                .map(ArticleResponse::of)
+                .toList();
+
+        return new ArticleListResponse(list);
     }
 }
