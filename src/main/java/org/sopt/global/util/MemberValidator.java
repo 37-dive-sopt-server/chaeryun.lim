@@ -1,6 +1,6 @@
 package org.sopt.global.util;
 
-import org.sopt.domain.member.dto.request.CreateMemberRequest;
+import org.sopt.domain.member.dto.request.member.CreateMemberRequest;
 import org.sopt.global.exception.ErrorCode;
 import org.sopt.global.exception.handler.MemberException;
 

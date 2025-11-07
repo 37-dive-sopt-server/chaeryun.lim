@@ -1,11 +1,9 @@
 package org.sopt.domain.member.service;
 
-import org.sopt.domain.member.dto.request.CreateMemberRequest;
-import org.sopt.domain.member.dto.response.CreateMemberResponse;
-import org.sopt.domain.member.dto.response.MemberListResponse;
-import org.sopt.domain.member.dto.response.MemberResponse;
-
-import java.util.List;
+import org.sopt.domain.member.dto.request.member.CreateMemberRequest;
+import org.sopt.domain.member.dto.response.member.CreateMemberResponse;
+import org.sopt.domain.member.dto.response.member.MemberListResponse;
+import org.sopt.domain.member.dto.response.member.MemberResponse;
 
 public interface MemberService {
 

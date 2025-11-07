@@ -13,6 +13,7 @@ public enum ErrorCode {
     EMPTY_DATA(HttpStatus.BAD_REQUEST, 400, "요청 데이터가 비어 있습니다."),
     AGE_RESTRICTION(HttpStatus.BAD_REQUEST, 400, "20세 미만의 회원은 가입이 불가능합니다."),
     NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, 404, "⚠️ 해당 ID의 회원을 찾을 수 없습니다."),
+    NOT_FOUND_ARTICLE(HttpStatus.NOT_FOUND, 404, "⚠️ 해당 ID의 아티클을 찾을 수 없습니다."),
     MEMBER_FILE_LOAD_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 500, "회원 파일 로드에 오류가 발생했습니다."),
     MEMBER_FILE_SAVE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 500, "회원 파일 저장에 오류가 발생했습니다.");
 

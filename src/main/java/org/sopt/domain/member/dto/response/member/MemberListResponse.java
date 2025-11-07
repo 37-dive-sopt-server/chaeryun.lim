@@ -1,4 +1,4 @@
-package org.sopt.domain.member.dto.response;
+package org.sopt.domain.member.dto.response.member;
 
 import java.util.List;
 

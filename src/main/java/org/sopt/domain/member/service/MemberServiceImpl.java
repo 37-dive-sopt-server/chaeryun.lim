@@ -1,9 +1,9 @@
 package org.sopt.domain.member.service;
 
-import org.sopt.domain.member.dto.request.CreateMemberRequest;
-import org.sopt.domain.member.dto.response.CreateMemberResponse;
-import org.sopt.domain.member.dto.response.MemberListResponse;
-import org.sopt.domain.member.dto.response.MemberResponse;
+import org.sopt.domain.member.dto.request.member.CreateMemberRequest;
+import org.sopt.domain.member.dto.response.member.CreateMemberResponse;
+import org.sopt.domain.member.dto.response.member.MemberListResponse;
+import org.sopt.domain.member.dto.response.member.MemberResponse;
 import org.sopt.domain.member.entity.Gender;
 import org.sopt.domain.member.entity.Member;
 import org.sopt.domain.member.repository.MemberRepository;

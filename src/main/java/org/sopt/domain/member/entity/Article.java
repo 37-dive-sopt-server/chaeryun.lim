@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.sopt.domain.member.dto.request.article.CreateArticleRequest;
 import org.sopt.global.entity.BaseTimeEntity;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -36,6 +37,15 @@ public class Article extends BaseTimeEntity {
         this.title = title;
         this.content = content;
         this.member = member;
+    }
+
+    public static Article create(CreateArticleRequest request, Member member) {
+        return Article.builder()
+                .title(request.title())
+                .content(request.content())
+                .member(member)
+                .tag(request.tag())
+                .build();
     }
 
     public void assignMember(Member member) {

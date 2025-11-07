@@ -1,11 +1,12 @@
 package org.sopt.domain.member.entity;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 public enum Tag {
-    CS, DB, SPRING, ETC;
+    CS("CS"), DB("DB"), SPRING("SPRING"), ETC("ETC");
+
+    private final String value;
 }
