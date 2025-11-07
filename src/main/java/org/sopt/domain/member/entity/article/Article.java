@@ -1,4 +1,4 @@
-package org.sopt.domain.member.entity;
+package org.sopt.domain.member.entity.article;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.sopt.domain.member.dto.request.article.CreateArticleRequest;
+import org.sopt.domain.member.entity.member.Member;
 import org.sopt.global.entity.BaseTimeEntity;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -46,10 +47,6 @@ public class Article extends BaseTimeEntity {
                 .member(member)
                 .tag(request.tag())
                 .build();
-    }
-
-    public void assignMember(Member member) {
-        this.member = member;
     }
 }
 

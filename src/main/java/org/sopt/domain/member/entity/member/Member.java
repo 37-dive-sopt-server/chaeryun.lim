@@ -1,9 +1,9 @@
-package org.sopt.domain.member.entity;
+package org.sopt.domain.member.entity.member;
 
 import jakarta.persistence.*;
+import org.sopt.domain.member.entity.article.Article;
 import org.sopt.global.exception.ErrorCode;
 import org.sopt.global.exception.handler.MemberException;
-import org.sopt.global.util.DateUtil;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package org.sopt.domain.member.dto.response.article;
 
-import org.sopt.domain.member.entity.Article;
+import org.sopt.domain.member.entity.article.Article;
 
 public record ArticleResponse(
         long articleId,

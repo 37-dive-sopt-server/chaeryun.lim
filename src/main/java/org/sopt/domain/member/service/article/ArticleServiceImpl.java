@@ -4,13 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.sopt.domain.member.dto.request.article.CreateArticleRequest;
 import org.sopt.domain.member.dto.response.article.ArticleListResponse;
 import org.sopt.domain.member.dto.response.article.ArticleResponse;
-import org.sopt.domain.member.entity.Article;
-import org.sopt.domain.member.entity.Member;
+import org.sopt.domain.member.entity.article.Article;
+import org.sopt.domain.member.entity.member.Member;
 import org.sopt.domain.member.repository.ArticleRepository;
-import org.sopt.domain.member.repository.MemberRepository;
+import org.sopt.domain.member.service.member.MemberService;
 import org.sopt.global.exception.ErrorCode;
 import org.sopt.global.exception.handler.ArticleException;
-import org.sopt.global.exception.handler.MemberException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +21,7 @@ import java.util.List;
 public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
     @Override
     public ArticleResponse getArticle(long articleId) {
@@ -39,8 +38,7 @@ public class ArticleServiceImpl implements ArticleService {
             throw new ArticleException(ErrorCode.ARTICLE_DUPLICATE_TITLE);
         }
 
-        Member member = memberRepository.findById(request.userId())
-                .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_MEMBER));
+        Member member = memberService.findMemberById(request.userId());
 
         Article article = articleRepository.save(Article.create(request, member));
         return ArticleResponse.of(article);

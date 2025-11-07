@@ -1,10 +1,11 @@
 package org.sopt.domain.member.controller;
 
+import jakarta.validation.Valid;
 import org.sopt.domain.member.dto.request.member.CreateMemberRequest;
 import org.sopt.domain.member.dto.response.member.CreateMemberResponse;
 import org.sopt.domain.member.dto.response.member.MemberListResponse;
 import org.sopt.domain.member.dto.response.member.MemberResponse;
-import org.sopt.domain.member.service.MemberService;
+import org.sopt.domain.member.service.member.MemberService;
 import org.sopt.global.api.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class MemberController {
 
     // 사용자 생성
     @PostMapping
-    public ResponseEntity<ApiResponse<CreateMemberResponse>> createMember(@RequestBody final CreateMemberRequest createMemberRequest) {
+    public ResponseEntity<ApiResponse<CreateMemberResponse>> createMember(@Valid @RequestBody final CreateMemberRequest createMemberRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 ApiResponse.created(
                         "멤버 등록이 성공하였습니다.",

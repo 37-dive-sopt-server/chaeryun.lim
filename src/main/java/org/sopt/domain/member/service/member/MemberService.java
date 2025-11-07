@@ -1,9 +1,10 @@
-package org.sopt.domain.member.service;
+package org.sopt.domain.member.service.member;
 
 import org.sopt.domain.member.dto.request.member.CreateMemberRequest;
 import org.sopt.domain.member.dto.response.member.CreateMemberResponse;
 import org.sopt.domain.member.dto.response.member.MemberListResponse;
 import org.sopt.domain.member.dto.response.member.MemberResponse;
+import org.sopt.domain.member.entity.member.Member;
 
 public interface MemberService {
 
@@ -19,4 +20,5 @@ public interface MemberService {
     // 회원 삭제
     void deleteMember(final Long memberId);
 
+    Member findMemberById(final Long memberId);
 }

@@ -1,4 +1,4 @@
-package org.sopt.domain.member.entity;
+package org.sopt.domain.member.entity.article;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,11 +1,11 @@
-package org.sopt.domain.member.service;
+package org.sopt.domain.member.service.member;
 
 import org.sopt.domain.member.dto.request.member.CreateMemberRequest;
 import org.sopt.domain.member.dto.response.member.CreateMemberResponse;
 import org.sopt.domain.member.dto.response.member.MemberListResponse;
 import org.sopt.domain.member.dto.response.member.MemberResponse;
-import org.sopt.domain.member.entity.Gender;
-import org.sopt.domain.member.entity.Member;
+import org.sopt.domain.member.entity.member.Gender;
+import org.sopt.domain.member.entity.member.Member;
 import org.sopt.domain.member.repository.MemberRepository;
 import org.sopt.global.exception.ErrorCode;
 import org.sopt.global.exception.handler.MemberException;
@@ -40,14 +40,11 @@ public class MemberServiceImpl implements MemberService {
             throw new MemberException(ErrorCode.EXIST_EMAIL);
         }
 
-        // 4. Gender 검사
-        Gender from = Gender.from(createMemberRequest.gender());
-
         Member member = new Member.
                 Builder(MemberIdGenerator.generatePostId(), createMemberRequest.name())
                 .birthDay(date)
                 .email(createMemberRequest.email())
-                .gender(from)
+                .gender(createMemberRequest.gender())
                 .build();
 
         Member save = memberRepository.save(member);
@@ -83,6 +80,11 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.deleteById(memberId);
     }
 
+    @Override
+    public Member findMemberById(Long memberId) {
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_MEMBER));
+    }
 
     // 이메일 중복확인 (있으면 true)
     private boolean isValidEmail(final String email){
