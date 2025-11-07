@@ -11,4 +11,5 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     Optional<Article> findById(final long id);
     Article save(Article article);
+    Optional<Article> findByTitle(String title);
 }

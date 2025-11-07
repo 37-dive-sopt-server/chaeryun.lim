@@ -20,7 +20,7 @@ public class Article extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Tag tag;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String title;
 
     @Lob

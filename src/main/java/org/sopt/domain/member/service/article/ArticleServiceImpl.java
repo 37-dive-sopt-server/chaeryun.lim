@@ -35,6 +35,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public ArticleResponse createArticle(CreateArticleRequest request) {
+        if (checkTitle(request.title())) {
+            throw new ArticleException(ErrorCode.ARTICLE_DUPLICATE_TITLE);
+        }
+
         Member member = memberRepository.findById(request.userId())
                 .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_MEMBER));
 
@@ -49,5 +53,10 @@ public class ArticleServiceImpl implements ArticleService {
                 .toList();
 
         return new ArticleListResponse(list);
+    }
+
+    private boolean checkTitle(String title){
+        return articleRepository.findByTitle(title)
+                .isPresent();
     }
 }
