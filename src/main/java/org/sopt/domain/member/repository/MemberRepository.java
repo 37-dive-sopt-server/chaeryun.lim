@@ -1,11 +1,14 @@
 package org.sopt.domain.member.repository;
 
-import org.sopt.domain.member.entity.Member;
+import org.sopt.domain.member.entity.member.Member;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface MemberRepository {
+@Repository
+public interface MemberRepository extends JpaRepository<Member, Long> {
 
     // 사용자 저장
     Member save(final Member member);
@@ -20,5 +23,5 @@ public interface MemberRepository {
     void deleteById(final Long id);
 
     // 이메일 중복검증
-    Optional<Member> existMemberByEmail(final String email);
+    Optional<Member> existByMember(final String email);
 }

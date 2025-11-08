@@ -1,6 +1,6 @@
-package org.sopt.domain.member.dto.response;
+package org.sopt.domain.member.dto.response.member;
 
-import org.sopt.domain.member.entity.Member;
+import org.sopt.domain.member.entity.member.Member;
 import org.sopt.global.util.DateUtil;
 
 public record MemberResponse(

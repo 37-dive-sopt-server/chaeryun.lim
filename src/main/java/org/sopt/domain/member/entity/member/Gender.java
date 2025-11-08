@@ -1,4 +1,4 @@
-package org.sopt.domain.member.entity;
+package org.sopt.domain.member.entity.member;
 
 import java.util.Arrays;
 

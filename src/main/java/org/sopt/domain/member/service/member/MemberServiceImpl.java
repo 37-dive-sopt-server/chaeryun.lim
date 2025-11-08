@@ -1,19 +1,17 @@
-package org.sopt.domain.member.service;
+package org.sopt.domain.member.service.member;
 
-import org.sopt.domain.member.dto.request.CreateMemberRequest;
-import org.sopt.domain.member.dto.response.CreateMemberResponse;
-import org.sopt.domain.member.dto.response.MemberListResponse;
-import org.sopt.domain.member.dto.response.MemberResponse;
-import org.sopt.domain.member.entity.Gender;
-import org.sopt.domain.member.entity.Member;
-import org.sopt.domain.member.repository.FileSavable;
+import org.sopt.domain.member.dto.request.member.CreateMemberRequest;
+import org.sopt.domain.member.dto.response.member.CreateMemberResponse;
+import org.sopt.domain.member.dto.response.member.MemberListResponse;
+import org.sopt.domain.member.dto.response.member.MemberResponse;
+import org.sopt.domain.member.entity.member.Gender;
+import org.sopt.domain.member.entity.member.Member;
 import org.sopt.domain.member.repository.MemberRepository;
 import org.sopt.global.exception.ErrorCode;
 import org.sopt.global.exception.handler.MemberException;
 import org.sopt.global.util.DateUtil;
 import org.sopt.global.util.MemberIdGenerator;
 import org.sopt.global.util.MemberValidator;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -23,7 +21,7 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
 
-    public MemberServiceImpl(@Qualifier(value = "memoryMemberRepository") MemberRepository memberRepository) {
+    public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
@@ -42,14 +40,11 @@ public class MemberServiceImpl implements MemberService {
             throw new MemberException(ErrorCode.EXIST_EMAIL);
         }
 
-        // 4. Gender 검사
-        Gender from = Gender.from(createMemberRequest.gender());
-
         Member member = new Member.
                 Builder(MemberIdGenerator.generatePostId(), createMemberRequest.name())
                 .birthDay(date)
                 .email(createMemberRequest.email())
-                .gender(from)
+                .gender(createMemberRequest.gender())
                 .build();
 
         Member save = memberRepository.save(member);
@@ -85,17 +80,14 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.deleteById(memberId);
     }
 
-    // 종료 전 파일 저장
     @Override
-    public void saveFile() {
-        // FileMemberRepository 일때만 동작
-        if (memberRepository instanceof FileSavable fileSavable) {
-            fileSavable.saveFile();
-        }
+    public Member findMemberById(Long memberId) {
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_MEMBER));
     }
 
     // 이메일 중복확인 (있으면 true)
     private boolean isValidEmail(final String email){
-        return memberRepository.existMemberByEmail(email).isPresent();
+        return memberRepository.existByMember(email).isPresent();
     }
 }
